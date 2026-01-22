@@ -16,9 +16,21 @@ interface EditorState {
     numberFontFamily: string;
     setNumberFontFamily: (font: string) => void;
     baseImage: string | null;
+    baseImageName: string | null;
+    baseImageType: "ai" | "raster" | null;
+    baseImageSize: { width: number; height: number } | null;
     setBaseImage: (url: string | null) => void;
+    setBaseImageName: (name: string | null) => void;
+    setBaseImageType: (type: "ai" | "raster" | null) => void;
+    setBaseImageSize: (size: { width: number; height: number } | null) => void;
+    nameOffsetY: number;
+    setNameOffsetY: (value: number) => void;
+    numberOffsetY: number;
+    setNumberOffsetY: (value: number) => void;
     shouldExport: number;
     triggerExport: () => void;
+    shouldExportAi: number;
+    triggerExportAi: () => void;
 }
 
 const EditorContext = createContext<EditorState | undefined>(undefined);
@@ -31,9 +43,16 @@ export function EditorProvider({ children }: PropsWithChildren) {
     const [fontFamily, setFontFamily] = useState("arial");
     const [numberFontFamily, setNumberFontFamily] = useState("impact");
     const [baseImage, setBaseImage] = useState<string | null>(null);
+    const [baseImageName, setBaseImageName] = useState<string | null>(null);
+    const [baseImageType, setBaseImageType] = useState<"ai" | "raster" | null>(null);
+    const [baseImageSize, setBaseImageSize] = useState<{ width: number; height: number } | null>(null);
+    const [nameOffsetY, setNameOffsetY] = useState(-20);
+    const [numberOffsetY, setNumberOffsetY] = useState(40);
     const [shouldExport, setShouldExport] = useState(0);
+    const [shouldExportAi, setShouldExportAi] = useState(0);
 
     const triggerExport = () => setShouldExport(Date.now());
+    const triggerExportAi = () => setShouldExportAi(Date.now());
 
     const value = {
         name,
@@ -50,8 +69,20 @@ export function EditorProvider({ children }: PropsWithChildren) {
         setNumberFontFamily,
         baseImage,
         setBaseImage,
+        baseImageName,
+        setBaseImageName,
+        baseImageType,
+        setBaseImageType,
+        baseImageSize,
+        setBaseImageSize,
+        nameOffsetY,
+        setNameOffsetY,
+        numberOffsetY,
+        setNumberOffsetY,
         shouldExport,
-        triggerExport
+        triggerExport,
+        shouldExportAi,
+        triggerExportAi
     };
 
     return (
