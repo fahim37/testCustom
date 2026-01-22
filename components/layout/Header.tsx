@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Plus, Download, Upload, Play } from "lucide-react";
-import Image from "next/image";
+import { Plus, Download, Upload, Play, FileDown } from "lucide-react";
 import { useEditor } from "@/components/editor/EditorProvider";
 
 export function Header() {
-    const { triggerExport } = useEditor();
+    const { triggerExport, triggerExportAi } = useEditor();
     return (
         <header className="flex h-14 items-center justify-between border-b bg-background px-4">
             <div className="flex items-center gap-4">
@@ -31,6 +30,10 @@ export function Header() {
                 <Button variant="outline" size="sm" className="h-8 text-xs gap-2">
                     <Upload className="h-3.5 w-3.5" />
                     Import Batch
+                </Button>
+                <Button variant="outline" size="sm" className="h-8 text-xs gap-2" onClick={triggerExportAi}>
+                    <FileDown className="h-3.5 w-3.5" />
+                    Export AI
                 </Button>
                 <Button variant="outline" size="sm" className="h-8 text-xs gap-2" onClick={triggerExport}>
                     <Download className="h-3.5 w-3.5" />
